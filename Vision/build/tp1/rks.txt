@@ -1,0 +1,3 @@
+PGM to PBM
+-taking max_intens/2 better for clown, worse for lena
+-taking median/mean better for lena, worse for clown
