@@ -162,6 +162,11 @@ void feep::load(string file_name, int debug_print)
     {
         flush_comment(fs,true);
         max_intens = get_int(fs);
+        if(max_intens > 255)
+        {
+            cerr << "max intens > 255 not implemented, abort" << endl;
+            exit(1);
+        }
     }
 
     flush_comment(fs,true);
@@ -220,18 +225,21 @@ void feep::load(string file_name, int debug_print)
         for(int iLig = 0 ; iLig < h ; iLig++)
         {
             flush_comment(fs);
-            for(int iCol = 0 ; iCol < 3*w ; iCol++)
+            for(int iCol = 0 ; iCol < w ; iCol++)
             {
-                unsigned char val;
-                if(binary)
-                    val = fs.get();
-                else
-                    val = get_int(fs);
+                for(int chan = 0 ; chan < 3 ; chan++)
+                {
+                    unsigned char val;
+                    if(binary)
+                        val = fs.get();
+                    else
+                        val = get_int(fs);
                     
-                if(!fs.good())
-                    break;
+                    if(!fs.good())
+                        break;
 
-                pixel_map[iLig][iCol%w][iCol/w] = val;
+                    pixel_map[iLig][iCol][chan] = val;
+                }
             }
 
             if(!fs.good())
@@ -292,12 +300,15 @@ void feep::save(string where)
     {
         for(int iLig = 0 ; iLig < h ; iLig++)
         {
-            for(int iCol = 0 ; iCol < 3*w ; iCol++)
+            for(int iCol = 0 ; iCol < w ; iCol++)
             {
-                if(binary)
-                    fs << pixel_map[iLig][iCol%3][iCol/3];
-                else
-                    fs << (int)pixel_map[iLig][iCol%3][iCol/3] << " ";
+                for(int chan = 0 ; chan < 3 ; chan++)
+                {
+                    if(binary)
+                        fs << pixel_map[iLig][iCol][chan];
+                    else
+                        fs << (int)pixel_map[iLig][iCol][chan] << " ";
+                }
             }
             if(not binary)
                 fs << endl;
@@ -350,31 +361,26 @@ void feep::pretty_print()
     }
 }
 
-feep feep::to_pbm(bool to_binary, conversion_method how)
+void feep::convert_to_pbm(feep& copy, conversion_method how)
 {
     if(type == PPM)
     {
         cerr << "no direct conversions PPM -> PBM, use an intermediate PGM" << endl;
-        return *this;
+        return;
     }
     
-    feep copy = feep(*this);
-    copy.binary = to_binary;
 
-    if(type == PBM)
-        return copy;
-
-    if(how == PGM_PBM_MAX)
+    if(how == MAX)
     {
         for(int iLig = 0 ; iLig < copy.h ; iLig++)
             for(int iCol = 0; iCol < copy.w ; iCol++)
                 copy[iLig][iCol].is_white = (copy[iLig][iCol].w > copy.max_intens / 2);
         
         copy.type = PBM;
-        return copy;
+        return;
     }
 
-    if(how == PGM_PBM_MEAN)
+    if(how == MEAN)
     {
         float mean = 0.0;
         for(int iLig = 0 ; iLig < copy.h ; iLig++)
@@ -387,10 +393,10 @@ feep feep::to_pbm(bool to_binary, conversion_method how)
                 copy[iLig][iCol].is_white = (copy[iLig][iCol].w > mean);
         
         copy.type = PBM;
-        return copy;
+        return;
     }
 
-    if(how == PGM_PBM_MED)
+    if(how == MED)
     {
         vector<unsigned char> vals;
         for(int iLig = 0 ; iLig < copy.h ; iLig++)
@@ -411,10 +417,110 @@ feep feep::to_pbm(bool to_binary, conversion_method how)
                 copy[iLig][iCol].is_white = (copy[iLig][iCol].w > med);
         
         copy.type = PBM;
-        return copy;
+        return;
     }
 
 
     cerr << "nothing was done" << endl;
+    return;
+}
+
+void feep::convert_to_pgm(feep& copy, conversion_method how)
+{
+
+    if(type == PBM)
+    {
+        copy.max_intens = 1;
+        for(int iLig = 0 ; iLig < copy.h ; iLig++)
+            for(int iCol = 0 ; iCol < copy.w ; iCol++)
+                copy[iLig][iCol].w = copy[iLig][iCol].is_white;
+        copy.type = PGM;
+        return;
+    }
+    
+    if(type == PPM)
+    {
+        if(how == MAX)
+        {
+            for(int iLig = 0 ; iLig < copy.h ; iLig++)
+                for(int iCol = 0 ; iCol < copy.w ; iCol++)
+                    copy[iLig][iCol].w = max(copy[iLig][iCol][0],max(copy[iLig][iCol][1],copy[iLig][iCol][2]));
+            copy.type = PGM;
+            return;
+        }
+        if(how == MEAN)
+        {
+            for(int iLig = 0 ; iLig < copy.h ; iLig++)
+                for(int iCol = 0 ; iCol < copy.w ; iCol++)
+                    copy[iLig][iCol].w = (copy[iLig][iCol][0]+copy[iLig][iCol][1]+copy[iLig][iCol][2])/3;
+            copy.type = PGM;
+            return;   
+        }
+        if(how == MED)
+        {
+            for(int iLig = 0 ; iLig < copy.h ; iLig++)
+                for(int iCol = 0 ; iCol < copy.w ; iCol++)
+                {
+                    vector<unsigned char> v = {copy[iLig][iCol][0],copy[iLig][iCol][1],copy[iLig][iCol][2]};
+                    sort(v.begin(),v.end());
+                    auto med = v[1];
+                    copy[iLig][iCol].w = med;
+                }
+            copy.type = PGM;
+            return;   
+        }
+    }
+
+    cerr << "nothing was done" << endl;
+    return;
+}
+
+void feep::convert_to_ppm(feep& copy, conversion_method how, vector<array<int,3>> color_map)
+{
+    if(how == DEFAULT_COLOR_MAP)
+    {
+        //TODO
+        cerr << "no default colormap implemented yet" << endl;
+    }
+
+    if(how != CUSTOM_COLOR_MAP)
+    {
+        cerr << "nothing was done" << endl;
+        return;
+    }
+
+    if(color_map.size() != 256)
+    {
+        cerr << "wrong format for custom colormap" << endl;
+        return;
+    }
+
+    for(int iLig = 0 ; iLig < copy.h ; iLig++)
+        for(int iCol = 0 ; iCol < copy.w ; iCol++)
+        {
+            int w = copy[iLig][iCol].w;
+            for(int chan = 0 ; chan < 3 ; chan++)
+                copy[iLig][iCol][chan] = color_map[w][chan];
+        }
+    copy.type = PGM;
+}
+
+feep feep::convert_to(feep_type to, bool to_binary, conversion_method how, vector<array<int,3>> color_map)
+{
+    feep copy = feep(*this);
+    copy.binary = to_binary;
+
+    if(to == type)
+        return copy;
+
+    if(to == PBM)
+        convert_to_pbm(copy, how);
+
+    if(to == PGM)
+        convert_to_pgm(copy, how);
+
+    if(to == PPM)
+        convert_to_ppm(copy, how, color_map);
+
     return copy;
 }

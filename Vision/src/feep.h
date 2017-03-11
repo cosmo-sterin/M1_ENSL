@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <array>
 #include <fstream> 
 #include <bitset>
 
@@ -21,9 +22,11 @@ enum feep_type
 enum conversion_method
 {
     NONE = 0,
-    PGM_PBM_MAX, // >= max_intens/2
-    PGM_PBM_MEAN, // >= mean_itens
-    PGM_PBM_MED, // >= med_intens
+    MAX, 
+    MEAN, 
+    MED,
+    DEFAULT_COLOR_MAP,//TODO
+    CUSTOM_COLOR_MAP,
 };
 
 struct pixel
@@ -64,7 +67,7 @@ public:
 
     vector<pixel>& operator [](unsigned int i);
 
-    feep to_pbm(bool to_binary, conversion_method how=NONE);
+    feep convert_to(feep_type to, bool to_binary, conversion_method how=NONE, vector<array<int,3>> color_map=vector<array<int,3>>());
 
 private:
     string image_name;
@@ -74,6 +77,10 @@ private:
     int max_intens;
 
     vector<vector<pixel>> pixel_map;
+
+    void convert_to_pbm(feep& copy, conversion_method how=NONE);
+    void convert_to_pgm(feep& copy, conversion_method how=NONE);
+    void convert_to_ppm(feep& copy, conversion_method how, vector<array<int,3>> color_map);
 };
 
 #endif
