@@ -41,4 +41,8 @@ int main(int argc, char** argv)
     feep len_gamma1o22 = len_dark.apply_transformation(gamma1o22,true);
     len_gamma1o22.save_histogram("results/histo_leng1o22.csv");
     len_gamma1o22.save("results/len_g1o22.pgm");
+
+    feep len_equa = len_dark.equalize(true);
+    len_equa.save_histogram("results/histo_lenequa.csv");
+    len_equa.save("results/len_equa.pgm");
 }

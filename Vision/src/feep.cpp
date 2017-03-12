@@ -575,3 +575,34 @@ feep feep::apply_transformation(function<int(int)> phi, bool copy_p)
     copy->make_histogram();
     return *copy;
 }
+
+int feep::equalize_i(int i)
+{
+    float s1 = 0, s2 = 0;
+    for(int j = 0 ; j <= i ; j++)
+        s1 += histogram[j];
+    for(int k = 0 ; k <= max_intens ; k++)
+        s2 += histogram[k];
+
+    return max_intens*s1/s2;
+}
+
+feep feep::equalize(bool copy_p)
+{
+    if(type != PGM)
+    {
+        cerr << "transformations implem for PGM only" << endl;
+        return *this;
+    }
+    feep* copy;
+    if(copy_p)
+        copy = new feep(*this);
+    else
+        copy = this;
+
+    for(int iLig = 0 ; iLig < h ; iLig++)
+        for(int iCol = 0 ; iCol < w ; iCol++)
+            (*copy)[iLig][iCol].w = equalize_i((*copy)[iLig][iCol].w);
+    copy->make_histogram();
+    return *copy;
+}

@@ -74,6 +74,8 @@ public:
     void save_histogram(string histo_name);
 
     feep apply_transformation(function<int(int)> phi, bool copy_p=false);
+    feep equalize(bool copy_p = false);
+    int equalize_i(int i);
 
 private:
     string image_name;
