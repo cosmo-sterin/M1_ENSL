@@ -22,8 +22,15 @@ int gamma_correction(int i, float gamma)
     return int(pow(i,1/gamma));
 }
 
+int naive_threshold(int i, int t, int M)
+{
+    return (i >= t) ? M : 0;
+}
+
 int main(int argc, char** argv)
 {
+    //Image transformation
+
     using namespace std::placeholders;
     feep len_dark = feep("../../data/tp2/len_dark.pgm",true);
     len_dark.save_histogram("results/histo_lendark.csv");
@@ -45,4 +52,15 @@ int main(int argc, char** argv)
     feep len_equa = len_dark.equalize(true);
     len_equa.save_histogram("results/histo_lenequa.csv");
     len_equa.save("results/len_equa.pgm");
+
+    //Image Segmentation
+    feep objects = feep("../../data/tp2/objects-dark.pgm",true);
+    auto naive_100 = bind(naive_threshold, _1, 100, objects.max_intens);
+    feep objects_100 = objects.apply_transformation(naive_100,true);
+    objects_100.save("results/obj_100threshold.pgm");
+
+    auto naive_50 = bind(naive_threshold, _1, 50, objects.max_intens);
+    feep objects_50 = objects.apply_transformation(naive_50,true);
+    objects_50.save("results/obj_50threshold.pgm");
+
 }
