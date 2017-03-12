@@ -13,6 +13,8 @@
 
 using namespace std;
 
+typedef array<float,256> histo;
+
 enum feep_type
 {
     PBM = 0,
@@ -77,7 +79,9 @@ public:
     feep equalize(bool copy_p = false);
     int equalize_i(int i);
 
+
     int max_intens;
+    histo histogram;
 private:
     string image_name;
     feep_type type;
@@ -85,7 +89,6 @@ private:
     int w,h;
 
     vector<vector<pixel>> pixel_map;
-    array<float,256> histogram;
 
     void convert_to_pbm(feep& copy, conversion_method how=NONE);
     void convert_to_pgm(feep& copy, conversion_method how=NONE);
