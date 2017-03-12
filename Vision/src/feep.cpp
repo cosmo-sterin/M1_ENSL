@@ -68,6 +68,7 @@ feep::feep()
     w=0;
     h=0;
     max_intens=0;
+    histogram = {};
 }
 
 feep::feep(string file_name, int debug_mode)
@@ -523,4 +524,33 @@ feep feep::convert_to(feep_type to, bool to_binary, conversion_method how, vecto
         convert_to_ppm(copy, how, color_map);
 
     return copy;
+}
+
+//Normalized histo
+void feep::make_histogram(bool normalized)
+{
+    if(type != PGM)
+    {
+        cerr << "histogram only defined for PGM at the moment" << endl;
+        return;
+    }
+
+    for(int i = 0 ; i < 256 ; i++)
+        histogram[i] = 0;
+    for(int iLig = 0 ; iLig < h ; iLig++)
+        for(int iCol = 0 ; iCol < w ; iCol++)
+            histogram[pixel_map[iLig][iCol].w] += 1;
+
+    if(normalized)
+        for(int i = 0 ; i < 256 ; i++)
+            histogram[i] /= (h*w);
+}
+
+void feep::save_histogram(string histo_name)
+{
+    FILE* histo = fopen(histo_name.c_str(),"w");
+    fprintf(histo,"Int,NbPix\n");
+    for(int i=0 ; i < 256 ; i++)
+        fprintf(histo,"%d,%f\n",i,histogram[i]);
+    fclose(histo);
 }

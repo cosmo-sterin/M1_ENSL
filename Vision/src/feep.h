@@ -69,6 +69,9 @@ public:
 
     feep convert_to(feep_type to, bool to_binary, conversion_method how=NONE, vector<array<int,3>> color_map=vector<array<int,3>>());
 
+    void make_histogram(bool normalized = true);
+    void save_histogram(string histo_name);
+
 private:
     string image_name;
     feep_type type;
@@ -77,6 +80,7 @@ private:
     int max_intens;
 
     vector<vector<pixel>> pixel_map;
+    array<float,256> histogram;
 
     void convert_to_pbm(feep& copy, conversion_method how=NONE);
     void convert_to_pgm(feep& copy, conversion_method how=NONE);
