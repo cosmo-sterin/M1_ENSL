@@ -75,6 +75,7 @@ feep::feep(string file_name, int debug_mode)
 {
     feep();
     load(file_name,debug_mode);
+    make_histogram();
 }
 
 string feep::type_to_str(feep_type t)
@@ -553,4 +554,24 @@ void feep::save_histogram(string histo_name)
     for(int i=0 ; i < 256 ; i++)
         fprintf(histo,"%d,%f\n",i,histogram[i]);
     fclose(histo);
+}
+
+feep feep::apply_transformation(function<int(int)> phi, bool copy_p)
+{
+    if(type != PGM)
+    {
+        cerr << "transformations implem for PGM only" << endl;
+        return *this;
+    }
+    feep* copy;
+    if(copy_p)
+        copy = new feep(*this);
+    else
+        copy = this;
+
+    for(int iLig = 0 ; iLig < h ; iLig++)
+        for(int iCol = 0 ; iCol < w ; iCol++)
+            (*copy)[iLig][iCol].w = phi((*copy)[iLig][iCol].w);
+    copy->make_histogram();
+    return *copy;
 }

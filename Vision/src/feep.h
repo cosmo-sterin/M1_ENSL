@@ -7,6 +7,7 @@
 #include <array>
 #include <fstream> 
 #include <bitset>
+#include <functional>
 
 #include <algorithm>
 
@@ -71,6 +72,8 @@ public:
 
     void make_histogram(bool normalized = true);
     void save_histogram(string histo_name);
+
+    feep apply_transformation(function<int(int)> phi, bool copy_p=false);
 
 private:
     string image_name;
