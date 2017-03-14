@@ -25,7 +25,7 @@ $$ f_\theta(x) = \theta^{T}x$$
 Avec $\theta \in \mathbb{R^d}$ le paramètre de $f_\theta$.    
 Plus formellement on veut trouver $\theta$ qui minimise \textbf{l'erreur absolue} :   
 $$ J(\theta) = \sum_{x \in E} (f(x)-f_\theta(x))^2 $$    
-Cependant comme on ne connaît pas $E$, on doit se contenter d'approcher $J$ par $\hat J$ \textbf{l'erreur empirique} sur $D$ :
+Cependant comme on ne connaît pas $f$ sur $E$ en entier, on doit se contenter d'approcher $J$ par $\hat J$ \textbf{l'erreur empirique} sur $D$ :
 $$ \hat{J}(\theta) =  \sum_{i} (y_i-f_\theta(x_i))^2 = \sum_{i} (y_i-\theta^{T}x_i)^2 $$ 
 1) Que signifie $J(\theta) = 0$ ? $\hat{J}(\theta) = 0$ ?   \\
 2) Montrer $$ \hat{J}(\theta) \leq J(\theta)$$     
