@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.1.27)  14 MAR 2017 12:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.1.27)  14 MAR 2017 12:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,17 +496,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 71--74
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--77
+Underfull \hbox (badness 10000) in paragraph at lines 75--80
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--77
+Underfull \hbox (badness 10000) in paragraph at lines 82--87
 
  []
 
 
-Overfull \hbox (139.25702pt too wide) in paragraph at lines 94--95
+Overfull \hbox (139.25702pt too wide) in paragraph at lines 95--96
 []\OT1/cmr/m/n/12 Sujet (adapt^^Se) : $\OML/cmm/m/it/12 http \OT1/cmr/m/n/12 : 
 \OML/cmm/m/it/12 ==perso:univ \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 st \OMS/cms
 y/m/n/12 ^^@ \OML/cmm/m/it/12 etienne:fr=habrarda=ENSML=td[]niform[]tability:pd
@@ -514,7 +514,7 @@ f$
  []
 
 
-Overfull \hbox (141.98814pt too wide) in paragraph at lines 95--96
+Overfull \hbox (141.98814pt too wide) in paragraph at lines 96--97
 []\OT1/cmr/m/n/12 Correction : $\OML/cmm/m/it/12 http \OT1/cmr/m/n/12 : \OML/cm
 m/m/it/12 ==perso:univ \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 st \OMS/cmsy/m/n/1
 2 ^^@ \OML/cmm/m/it/12 etienne:fr=habrarda=ENSML=recap[]niformStability:pdf$ 
@@ -528,7 +528,7 @@ Here is how much of TeX's memory you used:
  6111 multiletter control sequences out of 15000+600000
  13650 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 28i,6n,30p,231b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,6n,30p,232b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
 12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/s
 hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dis
@@ -538,7 +538,7 @@ cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
 sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msbm10.pfb>
-Output written on exo.pdf (4 pages, 109615 bytes).
+Output written on exo.pdf (4 pages, 109612 bytes).
 PDF statistics:
  57 PDF objects out of 1000 (max. 8388607)
  40 compressed objects within 1 object stream
