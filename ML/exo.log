@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.1.27)  14 MAR 2017 13:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.1.27)  14 MAR 2017 13:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -524,7 +524,7 @@ m/m/it/12 ==perso:univ \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 st \OMS/cmsy/m/n/1
 Here is how much of TeX's memory you used:
  2562 strings out of 493013
  30740 string characters out of 6139317
- 94656 words of memory out of 5000000
+ 93656 words of memory out of 5000000
  6111 multiletter control sequences out of 15000+600000
  13650 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -538,7 +538,7 @@ cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
 sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msbm10.pfb>
-Output written on exo.pdf (4 pages, 109489 bytes).
+Output written on exo.pdf (4 pages, 109281 bytes).
 PDF statistics:
  57 PDF objects out of 1000 (max. 8388607)
  40 compressed objects within 1 object stream
