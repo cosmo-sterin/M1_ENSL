@@ -27,13 +27,13 @@ Plus formellement on veut trouver $\theta$ qui minimise \textbf{l'erreur absolue
 $$ J(\theta) = \sum_{x \in E} (f(x)-f_\theta(x))^2 $$    
 Cependant comme on ne connaît pas $E$, on doit se contenter d'approcher $J$ par $\hat J$ \textbf{l'erreur empirique} sur $D$ :
 $$ \hat{J}(\theta) =  \sum_{i} (y_i-f_\theta(x_i))^2 = \sum_{i} (y_i-\theta^{T}x_i)^2 $$ 
-1) Que signifie $J(\theta) = 0$ ? $\hat{J}(\theta) = 0$ ?   
+1) Que signifie $J(\theta) = 0$ ? $\hat{J}(\theta) = 0$ ?   \\
 2) Montrer $$ \hat{J}(\theta) \leq J(\theta)$$     
-3) Minimiser $\hat{J}(\theta)$ revient-il à minimiser $J(\theta)$ ?   
+3) Minimiser $\hat{J}(\theta)$ revient-il à minimiser $J(\theta)$ ?   \\
 Dans l'idéal on voudrait donc minimiser $J(\theta)$, cependant c'est $\hat{J}(\theta)$ que l'on peut minimiser en pratique.   
 Ce qui nous intéresserait ce serait trouver un terme $M > 0$ tel que:    
 $$ J(\theta^*) \leq \hat{J}(\theta^*) + M$$   
-Avec $\theta^*$ qui minimise $\hat{J}$.    
+Avec $\theta^*$ qui minimise $\hat{J}$.  \\  
 4) En quoi peut-on qualifier $M$ \textbf{d'erreur de généralisation} ?
 \subsection{Régression Linéaire Ridge-Régularisée}
 Pour des raisons passées sous silence, on considère ici les minimisations de : 
@@ -49,12 +49,12 @@ Dans la suite on note:
 -$\theta$ qui minimise $\hat{J}_r$ sur $D$   
 -$\theta^{ \backslash i}$  qui minimise $\hat{J}_r$ sur $D \backslash \{(x_i,y_i)\}$       
      
-Pour trouver la borne $M$ on dispose du théorème suivant :   
+Pour trouver la borne $M$ on dispose du théorème suivant :  \\ 
 \textbf{Théorème :} S'il existe $\beta$ tel que :  
 $$ \forall i \in \{1 \dots m \},  \quad sup_{x \in E} |l(\theta,x)-l(\theta^{ \backslash i},x)| \leq \frac{\beta}{m}$$   
-Avec $l(\theta,x) = (\theta^{T} x - f(x))^2$ et    $l(\theta^{\backslash i},x) = (\theta^\backslash{i}^{T} x - f(x))^2$    
-Et si $l(\theta,x)$ \textbf{est bornée} par $M$  
-\textbf{Alors :}    
+Avec $l(\theta,x) = (\theta^{T} x - f(x))^2$ et    $l(\theta^{\backslash i},x) = (\theta^\backslash{i}^{T} x - f(x))^2$    \\
+Et si $l(\theta,x)$ \textbf{est bornée} par $M$  \\
+\textbf{Alors :}    \\
 Avec probabilité $1-\delta$:     
 $$ J_r(\theta) \leq \hat{J}_r(\theta) + 2 \frac{\beta}{m} + (4\beta + M)\sqrt{\frac{ln(\frac{1}{\delta})}{2m}} $$   
 5) Que se passe-t-il lorsque m est grand ? Comment l'interprétez vous ?

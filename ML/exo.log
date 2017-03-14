@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.1.27)  14 MAR 2017 12:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2017.1.27)  14 MAR 2017 12:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -478,13 +478,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Warning: No \author given.
 
 Missing character: There is no d in font msbm10!
-
-Overfull \hbox (43.4905pt too wide) in paragraph at lines 35--38
-\OT1/cmr/m/n/12 Avec $\OML/cmm/m/it/12 ^^R[]$ \OT1/cmr/m/n/12 qui mi-ni-mise $[
-]$. 4) En quoi peut-on qua-li-fier $\OML/cmm/m/it/12 M$ \OT1/cmr/bx/n/12 d'er-r
-eur de g^^Sen^^Seralisation \OT1/cmr/m/n/12 ? 
- []
-
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
@@ -520,7 +513,7 @@ mr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
 hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/p
 ublic/amsfonts/symbols/msbm10.pfb>
-Output written on exo.pdf (3 pages, 109299 bytes).
+Output written on exo.pdf (3 pages, 109248 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  38 compressed objects within 1 object stream
