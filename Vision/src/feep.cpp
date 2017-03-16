@@ -606,3 +606,70 @@ feep feep::equalize(bool copy_p)
     copy->make_histogram();
     return *copy;
 }
+
+int feep::apply_filter_side(int candidate, int bound, filtering_method how)
+{
+    int to_return = candidate;
+    if(to_return >= 0 && to_return < bound)
+        return to_return;
+
+    switch(how)
+    {
+        case FILT_ZERO_PAD:
+            return -1;
+        break;
+
+        case FILT_MODULO:
+            if(to_return > 0)
+                return to_return % bound;
+            else
+                return bound - (abs(to_return)%bound);
+        break;
+
+        default:
+            cerr << "side effect filtering method not implem" << endl;
+            return -1;
+        break;
+    }
+}
+
+int feep::apply_filter_on(int iLig, int iCol, const vector<vector<float>>& filter, filtering_method how)
+{
+    float new_w = 0.0;
+    int h_filter = filter.size();
+    int w_filter = filter[0].size();
+
+    for(int i = 0 ; i < filter.size() ; i++)
+        for(int j = 0 ; j < filter[i].size() ; j++)
+        {
+            int i_image = apply_filter_side(iLig + i - h_filter/2,h,how);
+            int j_image = apply_filter_side(iCol + j - w_filter/2,w,how);
+
+            if(i_image < 0 || j_image < 0)
+                continue;
+            new_w += filter[i][j]*pixel_map[i_image][j_image].w;
+        }
+    
+    return (int)new_w;
+}
+
+feep feep::apply_filter(const vector<vector<float>>& filter, filtering_method how)
+{
+    if(type != PGM)
+    {
+        cerr << "filtering on PGM only" << endl;
+        return *this;
+    }
+
+    feep copy = feep(*this);
+
+
+    for(int iLig = 0 ; iLig < h ; iLig++)
+        for(int iCol = 0 ; iCol < w ; iCol++)
+        {
+            copy[iLig][iCol].w = apply_filter_on(iLig,iCol,filter,how);
+        }
+        
+    
+    return copy;
+}

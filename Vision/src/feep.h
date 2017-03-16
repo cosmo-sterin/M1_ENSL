@@ -32,6 +32,12 @@ enum conversion_method
     CUSTOM_COLOR_MAP,
 };
 
+enum filtering_method
+{
+    FILT_ZERO_PAD, // padding of 0
+    FILT_MODULO,
+};
+
 struct pixel
 {
     unsigned char is_white;//PBM
@@ -79,6 +85,9 @@ public:
     feep equalize(bool copy_p = false);
     int equalize_i(int i);
 
+    feep apply_filter(const vector<vector<float>>& filter, filtering_method how=FILT_ZERO_PAD);
+    int apply_filter_on(int iLig, int iCol, const vector<vector<float>>& filter, filtering_method how);
+    int apply_filter_side(int candidate, int bound, filtering_method how);
 
     int max_intens;
     histo histogram;
