@@ -91,11 +91,12 @@ public:
 
     int max_intens;
     histo histogram;
+    int w,h;
 private:
     string image_name;
     feep_type type;
     bool binary;
-    int w,h;
+    
 
     vector<vector<pixel>> pixel_map;
 
