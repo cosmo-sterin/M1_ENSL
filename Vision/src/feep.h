@@ -8,7 +8,8 @@
 #include <fstream> 
 #include <bitset>
 #include <functional>
-
+#include <queue>
+#include <cmath>
 #include <algorithm>
 
 using namespace std;
@@ -89,12 +90,19 @@ public:
     int apply_filter_on(int iLig, int iCol, const vector<vector<float>>& filter, filtering_method how);
     int apply_filter_side(int candidate, int bound, filtering_method how);
 
+    int find_cc(bool one_adj);
+    void cc_propagate_from(int iLig, int iCol, int curr_cc, bool one_adj);
+    bool is_valid(int iLig, int iCol);
+    vector<vector<int>> cc[2];
+    vector<array<int,2>> adj[2];
+    feep cc_to_feep(feep_type to, bool one_adj, int nb_cc);
+
     int max_intens;
     histo histogram;
     int w,h;
+    feep_type type;
 private:
     string image_name;
-    feep_type type;
     bool binary;
     
 

@@ -673,3 +673,91 @@ feep feep::apply_filter(const vector<vector<float>>& filter, filtering_method ho
     
     return copy;
 }
+
+
+bool feep::is_valid(int iLig, int iCol)
+{
+    return (iLig >= 0 && iLig < h) && (iCol >= 0 && iCol < w);
+}
+
+int feep::find_cc(bool one_adj)
+{
+    adj[0] = {{0,1},{0,-1},{1,0},{-1,0},{1,1},{-1,-1},{1,-1},{-1,1}};
+    adj[1] = {{0,1},{1,0},{-1,0},{0,-1}};
+    //Init to unseen
+    for(int iLig = 0 ; iLig < h ; iLig++)
+    {
+        cc[one_adj].push_back(vector<int>());
+        for(int iCol = 0 ; iCol < w ; iCol++)
+            cc[one_adj][iLig].push_back(-1);
+    }
+
+    int current_cc = 0;
+
+    for(int iLig = 0 ; iLig < h ; iLig++)
+        for(int iCol = 0 ; iCol < w ; iCol++)
+        {
+            if(cc[one_adj][iLig][iCol] == -1)
+            {
+
+                queue<pair<int,int>> to_visit;
+                to_visit.push(make_pair(iLig,iCol));
+                while(!to_visit.empty())
+                {
+                    auto curr = to_visit.front();
+                    to_visit.pop();
+
+                    if(cc[one_adj][curr.first][curr.second] != -1)
+                        continue;
+
+                    cc[one_adj][curr.first][curr.second] = current_cc;
+
+                    for(int iDir = 0 ; iDir < adj[one_adj].size() ; iDir++)
+                    {
+                        int newLig = curr.first+adj[one_adj][iDir][0];
+                        int newCol = curr.second+adj[one_adj][iDir][1];
+
+                        if(is_valid(newLig,newCol) && pixel_map[newLig][newCol].w == pixel_map[iLig][iCol].w)
+                            to_visit.push(make_pair(newLig,newCol));
+                        
+                    }
+
+                }
+
+                current_cc += 1;
+            }
+        }
+    return current_cc;
+}
+
+feep feep::cc_to_feep(feep_type to, bool one_adj, int nb_cc)
+{
+    feep copy = feep(*this);
+
+    if(to == PGM)
+    {
+        for(int iLig = 0 ; iLig < h ; iLig++)
+            for(int iCol = 0 ; iCol < w ; iCol++)
+            {
+                copy[iLig][iCol].w = (int)((float(cc[one_adj][iLig][iCol])/nb_cc)*255);
+                copy.max_intens = 255;
+            }
+    }
+
+    if(to == PPM)
+    {
+        vector<vector<int>> primes = {{2,3},{5,7},{11,13}};
+        vector<function<float (float)>> f_chan;
+        for(auto&& p: primes)
+            f_chan.push_back([p](float x) { return 255*sin(p[0]+p[1]*x); });
+        for(int iLig = 0 ; iLig < h ; iLig++)
+            for(int iCol = 0 ; iCol < w ; iCol ++)
+                for(int chan = 0 ; chan < 3 ; chan++)
+                    copy[iLig][iCol][chan] = (int)f_chan[chan](cc[one_adj][iLig][iCol]);
+        copy.max_intens = 255;
+        copy.type = PPM;
+
+    }
+
+    return copy;
+}

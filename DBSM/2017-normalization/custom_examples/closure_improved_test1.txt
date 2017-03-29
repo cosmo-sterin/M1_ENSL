@@ -1,0 +1,10 @@
+# unit test 1 for improved closure algorithm
+# closure'(sigma, A B) is expected to give 
+# A B C E I
+# test passed: OK
+
+A -> I
+A B -> E
+B I -> E
+C D -> I
+E -> C
