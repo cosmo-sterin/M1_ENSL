@@ -1,8 +1,0 @@
-# unit test 2 for naive closure algorithm
-# closure(sigma, A D) is expected to give 
-# A B D E H
-# test passed: OK
-
-A -> B
-D -> E
-B E -> H
