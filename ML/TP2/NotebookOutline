@@ -5,7 +5,7 @@ Part One: Different Models on Dummy Datasets
 KNN
     1)Implementation
     2)Tests
-        a)Moons dataset
+        a)Moons
         b)Circles
         c)Make Classification: Two Informative Features, Two Clusters/Class
         d)Make Classification: Three Classes, Two Informative Features, One Clusters/Class
@@ -15,6 +15,15 @@ AdaBoost
         b)Comparison of our Stump With SkLearn
         c)AdaBoost
         d)Comparison of ou AdaBoost With SkLearn
+    2)Tests
+        a)Moons
+        b)Circles
+        c)Make Classification: Two Informative Features, Two Clusters/Class
+SVN
+    1)Implementation
+    2)Tests
+        a)RBF Kernel
+            1)Moons
 
 Annexes
 Routine de plot
