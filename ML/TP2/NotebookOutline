@@ -1,0 +1,25 @@
+General Remarks
+One word about methodology
+
+Part One: Different Models on Dummy Datasets
+KNN
+    1)Implementation
+    2)Tests
+        a)Moons dataset
+        b)Circles
+        c)Make Classification: Two Informative Features, Two Clusters/Class
+        d)Make Classification: Three Classes, Two Informative Features, One Clusters/Class
+AdaBoost
+    1)Implementation
+        a)Decision Stump (Binary Classif)
+        b)Comparison of our Stump With SkLearn
+        c)AdaBoost
+        d)Comparison of ou AdaBoost With SkLearn
+
+Annexes
+Routine de plot
+Routine de cross validation
+
+
+Permis
+Impots
