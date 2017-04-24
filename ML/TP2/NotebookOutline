@@ -19,16 +19,29 @@ AdaBoost
         a)Moons
         b)Circles
         c)Make Classification: Two Informative Features, Two Clusters/Class
-SVN
+SVM
     1)Implementation
     2)Tests
         a)RBF Kernel
             1)Moons
+            2)Circles
+            3)Make Classification: Two Informative Features, Two Clusters/Class
+            4)Make Classification: Three Classes, Two Informative Features, One Clusters/Class
+        b)Polynomial Kernel
+            1)Moons
+            2)Circles
+            3)Make Classification: Two Informative Features, Two Clusters/Class
+        c)Sigmoid Kernel
+            1)Moons
+            2)Circles
+            3)Make Classification: Two Informative Features, Two Clusters/Class
+            4)Make Classification: Three Classes, Two Informative Features, One Clusters/Class
+
+Part Two: Comparison on More Real Datasets
+    1)Iris Dataset
+    2)Digits Dataset
+    3)Ozone Dataset
 
 Annexes
-Routine de plot
-Routine de cross validation
-
-
-Permis
-Impots
+    Routine de plot
+    Routine de cross validation
